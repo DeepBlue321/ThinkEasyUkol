@@ -10,6 +10,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Box } from "@mui/system";
+import { motion } from "framer-motion";
 
 function App() {
   const quest: string[] = ["Who?", "What?", "When?", "Where?"];
@@ -21,6 +22,9 @@ function App() {
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter") {
+      if (event.target.value === "") {
+        return;
+      }
       console.log(event.target.value);
       dispatch(changeAnswer(event.target.value));
       dispatch(changeQuestion(question + 1));
@@ -40,7 +44,17 @@ function App() {
       className="App"
     >
       {question !== 4 ? (
-        <Box sx={{ width: "60%" }}>
+        <Box
+          component={motion.div}
+          animate={{
+            opacity: 1,
+            transition: {
+              duration: 1,
+            },
+          }}
+          initial={{ opacity: 0 }}
+          sx={{ width: "60%" }}
+        >
           <Typography
             sx={{
               fontFamily: "Monospace",
@@ -52,17 +66,21 @@ function App() {
             {quest[index]}
           </Typography>
           <TextField
+            autoFocus={true}
             sx={{
               width: "100%",
               bgcolor: "white",
               fontFamily: "Monospace",
-              fontSize: "h1.fontSize",
+              fontSize: "29px",
             }}
             onKeyDown={handleKeyDown}
           />
         </Box>
       ) : (
         <Typography
+          component={motion.div}
+          animate={{ opacity: 1, y: "0" }}
+          initial={{ y: "-100vh", opacity: 0 }}
           sx={{
             fontFamily: "Monospace",
             fontSize: "h1.fontSize",
