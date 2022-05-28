@@ -9,9 +9,10 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import { Box } from "@mui/system";
 
 function App() {
-  const quest: string[] = ["Who", "What", "When", "Where"];
+  const quest: string[] = ["Who?", "What?", "When?", "Where?"];
   const answers = useSelector((state: RootState) => state.data.answers);
   const question = useSelector((state: RootState) => state.data.question);
 
@@ -28,14 +29,47 @@ function App() {
     }
   };
   return (
-    <div className="App">
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        bgcolor: "black",
+      }}
+      className="App"
+    >
       {question !== 4 ? (
-        <div>
-          <Typography>{quest[index]}</Typography>
-          <TextField onKeyDown={handleKeyDown} />
-        </div>
+        <Box sx={{ width: "60%" }}>
+          <Typography
+            sx={{
+              fontFamily: "Monospace",
+              fontSize: "h1.fontSize",
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            {quest[index]}
+          </Typography>
+          <TextField
+            sx={{
+              width: "100%",
+              bgcolor: "white",
+              fontFamily: "Monospace",
+              fontSize: "h1.fontSize",
+            }}
+            onKeyDown={handleKeyDown}
+          />
+        </Box>
       ) : (
-        <Typography>
+        <Typography
+          sx={{
+            fontFamily: "Monospace",
+            fontSize: "h1.fontSize",
+            fontWeight: "bold",
+            color: "white",
+          }}
+        >
           {answers[0] +
             " " +
             answers[1] +
@@ -46,7 +80,7 @@ function App() {
             "."}
         </Typography>
       )}
-    </div>
+    </Box>
   );
 }
 
